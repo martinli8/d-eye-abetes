@@ -210,7 +210,7 @@ def acquire_images(cam, nodemap, nodemap_tldevice):
         #  Ending acquisition appropriately helps ensure that devices clean up
         #  properly and do not need to be power-cycled to maintain integrity.
         cam.EndAcquisition()
-    
+
     except PySpin.SpinnakerException as ex:
         print 'Error: %s' % ex
         return False
@@ -313,7 +313,7 @@ def main():
     os.remove(test_file.name)
 
     result = True
-
+##
     # Retrieve singleton reference to system object
     system = PySpin.System.GetInstance()
 
