@@ -1,5 +1,8 @@
 import Tkinter as tk
+import tkMessageBox
 from tkinter import *
+from simple_function import *
+from PIL import ImageTk, Image
 
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
@@ -20,11 +23,14 @@ class Page2(Page):
        label = tk.Label(self, text="This is page 2")
        label.pack(side="top", fill="both", expand=True)
 
+
 class Page3(Page):
+   from simple_function import page3_functions
    def __init__(self, *args, **kwargs):
        Page.__init__(self, *args, **kwargs)
-       label = tk.Label(self, text="This is page 3")
-       label.pack(side="top", fill="both", expand=True)
+       turnOffLED = tk.Button(self, text = "turn OFF LED", command = self.page3_functions)
+       turnOffLED.pack()
+
 
 class MainView(tk.Frame):
     def __init__(self, master):
