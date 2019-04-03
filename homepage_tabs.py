@@ -20,8 +20,22 @@ class Page1(Page):
 class Page2(Page):
    def __init__(self, *args, **kwargs):
        Page.__init__(self, *args, **kwargs)
-       label = tk.Label(self, text="This is page 2")
-       label.pack(side="top", fill="both", expand=True)
+       im = Image.open("/Users/Shared/BME436/app.jpg")
+       ph = ImageTk.PhotoImage(im)
+       label = Label(self, image=ph)
+       label.image=ph
+       label.grid(row=1)
+
+       label1 = Label(self, image=ph)
+       label1.image=ph
+       # label1.pack()
+       label1.grid(row=1, column=1)
+
+       label1 = Label(self, image=ph)
+       label1.image=ph
+       # label1.pack()
+       label1.grid(row=1, column=2)
+
 
 
 class Page3(Page):
@@ -29,8 +43,10 @@ class Page3(Page):
    def __init__(self, *args, **kwargs):
        Page.__init__(self, *args, **kwargs)
        turnOffLED = tk.Button(self, text = "turn OFF LED", command = self.page3_functions)
+       ExitProgram = tk.Button(self, text = "ExitProgram", command = self.quit)
+       
        turnOffLED.pack()
-
+       ExitProgram.pack()
 
 class MainView(tk.Frame):
     def __init__(self, master):
