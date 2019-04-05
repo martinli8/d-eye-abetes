@@ -27,7 +27,8 @@ import os
 import PySpin
 import matplotlib.pyplot as plt
 import sys
-import keyboard
+import numpy
+#import keyboard
 
 
 def acquire_and_display_images(cam, nodemap, nodemap_tldevice):
@@ -149,9 +150,9 @@ def acquire_and_display_images(cam, nodemap, nodemap_tldevice):
                 try:
                     # Getting the image data as a numpy array
                     image_data = image_result.GetNDArray()
-
+                    #print type(image_data)
                     # Draws an image on the current figure.
-                    plt.imshow(image_data, cmap='gray')
+                    plt.imshow(image_data)
 
                     plt.pause(0.001)
 
@@ -159,13 +160,13 @@ def acquire_and_display_images(cam, nodemap, nodemap_tldevice):
                     plt.clf()
 
                     # If user presses enter, close the program
-                    if keyboard.is_pressed('ENTER'):
-                        print('Program is closing...')
+                   # if keyboard.is_pressed('ENTER'):
+                       # print('Program is closing...')
 
                         # close the gui
-                        plt.close('all')
-                        input('Done! Press Enter to exit...')
-                        return False
+                       # plt.close('all')
+                        #input('Done! Press Enter to exit...')
+                       # return False
                         
                 except PySpin.SpinnakerException:
                     raise
