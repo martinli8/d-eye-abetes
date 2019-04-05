@@ -20,22 +20,25 @@ class Page1(Page):
 class Page2(Page):
    def __init__(self, *args, **kwargs):
        Page.__init__(self, *args, **kwargs)
+       #still need to finish logic for individual file names and saving to array
+
        im = Image.open("/Users/Shared/BME436/app.jpg")
        ph = ImageTk.PhotoImage(im)
-       label = Label(self, image=ph)
+
+       label = Label(self, image=ph) #pic 1
        label.image=ph
-       label.grid(row=1)
+       label.grid(row=2)
 
-       label1 = Label(self, image=ph)
+       label1 = Label(self, image=ph) #pic2
        label1.image=ph
-       # label1.pack()
-       label1.grid(row=1, column=1)
+       label1.grid(row=2, column=1)
 
-       label1 = Label(self, image=ph)
+       label1 = Label(self, image=ph) #pic3
        label1.image=ph
-       # label1.pack()
-       label1.grid(row=1, column=2)
+       label1.grid(row=2, column=2)
 
+       label2 = Label(self, text="Procured Images")
+       label2.grid(row=1, column=1)
 
 
 class Page3(Page):
@@ -44,7 +47,7 @@ class Page3(Page):
        Page.__init__(self, *args, **kwargs)
        turnOffLED = tk.Button(self, text = "turn OFF LED", command = self.page3_functions)
        ExitProgram = tk.Button(self, text = "ExitProgram", command = self.quit)
-       
+
        turnOffLED.pack()
        ExitProgram.pack()
 
