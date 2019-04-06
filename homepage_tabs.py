@@ -1,6 +1,6 @@
 import Tkinter as tk
 import tkMessageBox
-from tkinter import *
+from Tkinter import *
 from simple_function import *
 from PIL import ImageTk, Image
 
@@ -13,9 +13,49 @@ class Page(tk.Frame):
 
 class Page1(Page):
    def __init__(self, *args, **kwargs):
+       global display
+       # from simple_function import exitCounter
+       # from simple_function import enterCounter
+       from simple_function import counter
        Page.__init__(self, *args, **kwargs)
        label = tk.Label(self, text="This is page 1")
        label.pack(side="top", fill="both", expand=True)
+
+       # display = False
+
+       counterValue = 1
+
+
+       #self.master = master
+
+       photoEnter = tk.Button(self,text = "Aim mode", command = self.enterCounter)
+       photoEnter.pack()
+       photoExit = tk.Button(self,text = "Photo Mode", command = self.exitCounter)
+       photoExit.pack()
+       photoRefresh = tk.Button(self,text = "refresh aim mode", command = self.refresh)
+       photoRefresh.pack()
+
+
+   def enterCounter(self):
+        global display
+        display = True
+        print(display)
+        self.refresh()
+
+
+   def exitCounter(self):
+        global display
+        display = False
+        print(display)
+
+   def refresh(self):
+       global display
+       print("entered Refresh")
+       print(display)
+       if display:
+           #counterValue = counter(counterValue
+           self.after(500, self.refresh)
+
 
 class Page2(Page):
    def __init__(self, *args, **kwargs):
