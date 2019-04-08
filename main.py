@@ -5,10 +5,11 @@ def main() :
 
     testF() ;
     spinStp() ;
+    print("cunt2222")
     setupCam() ;
 
 
-    clearCam
+    #clearCam
 
 
 
@@ -29,16 +30,18 @@ def testF() :
 
 def spinStp() :
     ## Sets up PySpin
-
+    
     # Retrieve singleton reference to system object
     system = PySpin.System.GetInstance()
     # Get current library version
+    
     version = system.GetLibraryVersion()
     #print 'Library version: %d.%d.%d.%d' % (version.major, version.minor, version.type, version.build)
     # Retrieve list of cameras from the system
     cam_list = system.GetCameras()
+    
     num_cameras = cam_list.GetSize()
-
+    
     if num_cameras == 0:
         cam_list.Clear()
         system.ReleaseInstance()
@@ -49,9 +52,11 @@ def spinStp() :
 
 
 def setupCam(cam_list) :
+
     cam = cam_list[0]
     try:
         result = True
+        
         # Retrieve TL device nodemap and print device information
         nodemap_tldevice = cam.GetTLDeviceNodeMap()
         #result &= print_device_info(nodemap_tldevice)
@@ -59,7 +64,7 @@ def setupCam(cam_list) :
         cam.Init()
         # Retrieve GenICam nodemap
         nodemap = cam.GetNodeMap()
-
+        
         #Run application
         camAc.runApp(cam, nodemap, nodemap_tldevice)
         # Acquire images

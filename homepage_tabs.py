@@ -3,7 +3,8 @@ import tkMessageBox
 from Tkinter import *
 from simple_function import *
 from PIL import ImageTk, Image
-
+import numpy as np
+import camAc as cAc
 class Page(tk.Frame):
 	def __init__(self, *args, **kwargs):
 		tk.Frame.__init__(self, *args, **kwargs)
@@ -83,14 +84,16 @@ class Page1(Page):
 	   if removeBoolean is True:
 		   picture.grid_remove()
 	   if even == True:
-		   im = Image.open("/Users/Shared/BME436/app.jpg")
-		   ph = ImageTk.PhotoImage(im)
+			data = cAc.getmyImg()
 
-		   picture = Label(self, image=ph) #pic 1
-		   picture.image=ph
-		   picture.grid(row=3,column=2)
-		   even = False
-		   removeBoolean = True;
+			im = Image.fromarray(data)
+			ph = ImageTk.PhotoImage(im)
+
+			picture = Label(self, image=ph) #pic 1
+			picture.image=ph
+			picture.grid(row=3,column=2)
+			even = True
+			removeBoolean = True;
 	   else:
 		   im = Image.open("/Users/Shared/BME436/app1.jpg")
 		   ph = ImageTk.PhotoImage(im)
@@ -113,23 +116,23 @@ class Page2(Page):
 	   Page.__init__(self, *args, **kwargs)
 	   #still need to finish logic for individual file names and saving to array
 
-	   im = Image.open("/Users/Shared/BME436/app.jpg")
-	   ph = ImageTk.PhotoImage(im)
+	   #im = Image.open("/Users/Shared/BME436/app.jpg")
+	   #ph = ImageTk.PhotoImage(im)
 
-	   label = Label(self, image=ph) #pic 1
-	   label.image=ph
-	   label.grid(row=2)
+	   #label = Label(self, image=ph) #pic 1
+	   #label.image=ph
+	   #label.grid(row=2)
 
-	   label1 = Label(self, image=ph) #pic2
-	   label1.image=ph
-	   label1.grid(row=2, column=1)
+	   #label1 = Label(self, image=ph) #pic2
+	   #label1.image=ph
+	   #label1.grid(row=2, column=1)
 
-	   label1 = Label(self, image=ph) #pic3
-	   label1.image=ph
-	   label1.grid(row=2, column=2)
+	   #label1 = Label(self, image=ph) #pic3
+	   #label1.image=ph
+	   #label1.grid(row=2, column=2)
 
-	   label2 = Label(self, text="Procured Images")
-	   label2.grid(row=1, column=1)
+	   #label2 = Label(self, text="Procured Images")
+	   #label2.grid(row=1, column=1)
 
 
 class Page3(Page):
@@ -172,7 +175,8 @@ class MainView(tk.Frame):
 
 		p1.show()
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
+def runUI():
 	root = tk.Tk()
 	main = MainView(root)
 	main.pack(side="top", fill="both", expand=True)
