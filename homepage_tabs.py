@@ -22,8 +22,12 @@ class Page1(Page):
 	   photoExit = tk.Button(self,text = "Photo Mode/Exit Aim", command = self.exitPhotoMode)
 	   photoExit.grid(row=1, column=2)
 
+
 	   global even
 	   even = True
+
+	   global removeBoolean
+	   removeBoolean = False
 
    def enterAimMode(self):
 		global display
@@ -52,10 +56,11 @@ class Page1(Page):
 
    def displayImageModButtons(self):
 	   global brightenButton
-	   brightenButton = tk.Button(self, text = "Brighten", command = self.brightnessIncrease)
 	   global dimButton
-	   dimButton = tk.Button(self, text = "Dim", command = self.brightnessDecrease)
 	   global saveButton
+
+	   brightenButton = tk.Button(self, text = "Brighten", command = self.brightnessIncrease)
+	   dimButton = tk.Button(self, text = "Dim", command = self.brightnessDecrease)
 	   saveButton = tk.Button(self, text = "Save", command = self.saveCurrentImage)
 
 	   brightenButton.grid(row = 2, column = 1)
@@ -73,21 +78,26 @@ class Page1(Page):
 
    def refresh(self):
 	   global even
+	   global removeBoolean
+	   global picture
+	   if removeBoolean is True:
+		   picture.grid_remove()
 	   if even == True:
 		   im = Image.open("/Users/Shared/BME436/app.jpg")
 		   ph = ImageTk.PhotoImage(im)
 
-		   label = Label(self, image=ph) #pic 1
-		   label.image=ph
-		   label.grid(row=3,column=2)
+		   picture = Label(self, image=ph) #pic 1
+		   picture.image=ph
+		   picture.grid(row=3,column=2)
 		   even = False
+		   removeBoolean = True;
 	   else:
 		   im = Image.open("/Users/Shared/BME436/app1.jpg")
 		   ph = ImageTk.PhotoImage(im)
 
-		   label = Label(self, image=ph) #pic 1
-		   label.image=ph
-		   label.grid(row=3,column=2)
+		   picture = Label(self, image=ph) #pic 1
+		   picture.image=ph
+		   picture.grid(row=3,column=2)
 
 		   even = True
 
