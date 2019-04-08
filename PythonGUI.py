@@ -154,7 +154,7 @@ def acquire_and_display_images(cam, nodemap, nodemap_tldevice):
                     # Draws an image on the current figure.
                     plt.imshow(image_data)
 
-                    plt.pause(0.001)
+                    plt.pause(0.1)
 
                     # Clear current reference of a figure. This will improve display speed significantly
                     plt.clf()

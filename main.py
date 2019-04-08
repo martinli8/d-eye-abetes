@@ -1,15 +1,23 @@
 import os
 import PySpin
 import camAc
+import homepage_tabs as gui
 def main() :
 
     testF() ;
     spinStp() ;
-    print("cunt2222")
-    setupCam() ;
 
 
     #clearCam
+
+#def runApp(cam, nodemap, nodemap_tldevice) :
+def runApp(cam) :
+
+    # Main area to run UI
+	gui.runUI(cam)
+    # Call function to bring up user interface
+
+    # User interface should call all relative functions
 
 
 
@@ -45,15 +53,25 @@ def spinStp() :
     if num_cameras == 0:
         cam_list.Clear()
         system.ReleaseInstance()
-        #print 'Not enough cameras!'
+        print 'Not enough cameras!'
         return False
-    else :
-        return cam_list
-
-
-def setupCam(cam_list) :
 
     cam = cam_list[0]
+    #cam = 1
+    cam_list.Clear()
+    setupCam(cam)
+
+    del cam
+    # Clear camera list before releasing system
+    
+    # Release system instance
+    system.ReleaseInstance()
+
+    
+
+def setupCam(cam) :
+
+    #runApp(cam)
     try:
         result = True
         
@@ -66,7 +84,8 @@ def setupCam(cam_list) :
         nodemap = cam.GetNodeMap()
         
         #Run application
-        camAc.runApp(cam, nodemap, nodemap_tldevice)
+        camAc.acquire_images(cam, nodemap, nodemap_tldevice)
+        runApp(cam)
         # Acquire images
         #result &= camAc.acquire_images(cam, nodemap, nodemap_tldevice)
         # Deinitialize camera
@@ -76,18 +95,13 @@ def setupCam(cam_list) :
         print 'Error: %s' % ex
         result = False
 
+    
     return result
 
 
-def clearCam(cam) :
-    del cam
-    # Clear camera list before releasing system
-    cam_list.Clear()
-    # Release system instance
-    system.ReleaseInstance()
-    return False
 
-
+#def runCam(cam, nodemap, nodemap_tldevice):
+    
 
 if __name__ == '__main__':
     main()

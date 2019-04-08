@@ -14,21 +14,20 @@ class Page(tk.Frame):
 
 class Page1(Page):
    def __init__(self, *args, **kwargs):
-	   global display
-	   from simple_function import counter
-	   Page.__init__(self, *args, **kwargs)
+        global display
+        #from simple_function import counter
+        Page.__init__(self, *args, **kwargs)
+        #self.pack()
+        photoEnter = tk.Button(self,text = "Aim mode", command = self.enterAimMode)
+        photoEnter.grid(row=1, column=1)
+        photoExit = tk.Button(self,text = "Photo Mode/Exit Aim", command = self.exitPhotoMode)
+        photoExit.grid(row=1, column=2)
 
-	   photoEnter = tk.Button(self,text = "Aim mode", command = self.enterAimMode)
-	   photoEnter.grid(row=1, column=1)
-	   photoExit = tk.Button(self,text = "Photo Mode/Exit Aim", command = self.exitPhotoMode)
-	   photoExit.grid(row=1, column=2)
+        #canvas = Canvas(self,width= 800, height =480)
+        #canvas.pack()
 
-
-	   global even
-	   even = True
-
-	   global removeBoolean
-	   removeBoolean = False
+        global removeBoolean
+        removeBoolean = False
 
    def enterAimMode(self):
 		global display
@@ -78,37 +77,33 @@ class Page1(Page):
 	   self.displayCurrentImage()
 
    def refresh(self):
-	   global even
-	   global removeBoolean
-	   global picture
-	   if removeBoolean is True:
-		   picture.grid_remove()
-	   if even == True:
-			data = cAc.getmyImg()
+        global cam
+        global removeBoolean
+        if removeBoolean == True:
+                picture.grid_remove()
+           
+        data = cAc.getmyImg(cam)
+        #print cam
+        print data
+        #im = Image.fromarray(data)
+        #img = ImageTk.PhotoImage(im)
 
-			im = Image.fromarray(data)
-			ph = ImageTk.PhotoImage(im)
+        
+        #self.canvas.create_image(20,20, anchor="nw", image=img)
+        #self.canvas.image = self.img
+        
+##        picture = Label(self, image=ph) #pic 1
+##        picture.image=ph
+##        picture.grid(row=3,column=2)
+##       removeBoolean = True;
+        
+        im = 0
+        ph = 0
+        data = 0
+        global display
 
-			picture = Label(self, image=ph) #pic 1
-			picture.image=ph
-			picture.grid(row=3,column=2)
-			even = True
-			removeBoolean = True;
-	   else:
-		   im = Image.open("/Users/Shared/BME436/app1.jpg")
-		   ph = ImageTk.PhotoImage(im)
-
-		   picture = Label(self, image=ph) #pic 1
-		   picture.image=ph
-		   picture.grid(row=3,column=2)
-
-		   even = True
-
-
-	   global display
-
-	   if display:
-		   self.after(500, self.refresh)
+        if display:
+           self.after(10, self.refresh)
 
 
 class Page2(Page):
@@ -176,9 +171,14 @@ class MainView(tk.Frame):
 		p1.show()
 
 #if __name__ == "__main__":
-def runUI():
-	root = tk.Tk()
-	main = MainView(root)
-	main.pack(side="top", fill="both", expand=True)
-	root.wm_geometry("400x400")
-	root.mainloop()
+def runUI(mycam):
+        global cam
+        cam = mycam
+        root = tk.Tk()
+        #canvas = Canvas(root,width= 800, height =480)
+        #canvas.pack()
+        
+        main = MainView(root)
+        main.pack(side="top", fill="both", expand=True)
+        root.wm_geometry("400x400")
+        root.mainloop()
