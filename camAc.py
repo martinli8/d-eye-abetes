@@ -1,7 +1,7 @@
 import os
 import PySpin
 import datetime
-
+#import scipy as sp
 global camR
 
 def shutdown():
@@ -27,6 +27,7 @@ def getmyImg(cam) :
         image_result = cam.GetNextImage()
         image_data = image_result.GetNDArray()
         image_result.Release()
+        #image_data = sp.imresize(image_data, (800, 480))
         return image_data
 
 def acquire_images(cam, nodemap, nodemap_tldevice) :

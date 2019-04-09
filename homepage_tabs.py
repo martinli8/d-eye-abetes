@@ -15,6 +15,8 @@ class Page(tk.Frame):
 class Page1(Page):
    def __init__(self, *args, **kwargs):
         global display
+        global img
+        self.panel = None
         #from simple_function import counter
         Page.__init__(self, *args, **kwargs)
         #self.pack()
@@ -25,7 +27,8 @@ class Page1(Page):
 
         #canvas = Canvas(self,width= 800, height =480)
         #canvas.pack()
-
+        global picture
+        picture = False
         global removeBoolean
         removeBoolean = False
 
@@ -79,31 +82,42 @@ class Page1(Page):
    def refresh(self):
         global cam
         global removeBoolean
-        if removeBoolean == True:
-                picture.grid_remove()
+        global picture
+        global img
+        
+      #  if removeBoolean == True:
+               # picture.grid_remove()
            
         data = cAc.getmyImg(cam)
         #print cam
-        print data
-        #im = Image.fromarray(data)
-        #img = ImageTk.PhotoImage(im)
-
+        #print data
+        im = Image.fromarray(data)
+        imDS = im.resize((800, 480))
+        img = ImageTk.PhotoImage(imDS)
+        del imDS
         
         #self.canvas.create_image(20,20, anchor="nw", image=img)
         #self.canvas.image = self.img
         
-##        picture = Label(self, image=ph) #pic 1
-##        picture.image=ph
-##        picture.grid(row=3,column=2)
-##       removeBoolean = True;
+##        picture = Label(self, image=img) #pic 1
+####        picture.image=ph
+##        picture.grid(row=3,column=3)
+##        removeBoolean = True;
+
+        if self.panel is None:
+                self.panel = Label(self, image = img)
+                self.panel.image = img
+                self.panel.grid(row=3, column=3)
+
+        else:
+                self.panel.configure(image=img)
+                self.panel.image = img
+                        
         
-        im = 0
-        ph = 0
-        data = 0
         global display
 
         if display:
-           self.after(10, self.refresh)
+           self.after(40, self.refresh)
 
 
 class Page2(Page):
