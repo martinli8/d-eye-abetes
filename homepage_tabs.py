@@ -191,7 +191,14 @@ def runUI(mycam):
         root = tk.Tk()
         #canvas = Canvas(root,width= 800, height =480)
         #canvas.pack()
-        
+        import RPi.GPIO as GPIO
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(24,GPIO.OUT)
+        GPIO.setup(23.GPIO.OUT)
+        print "LED on"
+        GPIO.output(24,GPIO.HIGH)
+        GPIO.output(23,GPIO.HIGH)
         main = MainView(root)
         main.pack(side="top", fill="both", expand=True)
         root.wm_geometry("400x400")
