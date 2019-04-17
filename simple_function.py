@@ -33,5 +33,12 @@ def onClick(self,):
 #     self.onClick
 
 def page3_functions(self):
-    print("Greetings!")
+    import RPi.GPIO as GPIO
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(24,GPIO.OUT)
+    GPIO.setup(23.GPIO.OUT)
+    print "LED OFF"
+    GPIO.output(24,GPIO.LOW)
+    GPIO.output(23,GPIO.LOW)
     tkMessageBox.showinfo("Shutdown Confirmed","Safe to power off")
