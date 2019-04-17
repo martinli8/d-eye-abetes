@@ -15,11 +15,11 @@ def stopCam(cam) :
 
 def savImg(myimg) :
     now = datetime.datetime.now()
-    myimg.save('/home/pi/Desktop/436/REEEEEE/d-eye-abetes/Photos/' + now.strftime("%Y_%m_%d_%H_%M_%S") + '.png', 'PNG')
+    myimg.convert('LA').save('/home/pi/Desktop/436/d-eye-abetes/Photos/' + now.strftime("%Y_%m_%d_%H_%M_%S") + '.png', 'PNG')
     return True
 
 def getimgs() :
-    list_imgs = os.listdir("/home/pi/Desktop/436/REEEEEE/d-eye-abetes/Photos/")
+    list_imgs = os.listdir("/home/pi/Desktop/436/d-eye-abetes/Photos/")
 
     return list_imgs
 
