@@ -20,15 +20,16 @@ class Page1(Page):
         #from simple_function import counter
         Page.__init__(self, *args, **kwargs)
         #self.pack()
-        photoEnter = tk.Button(self,text = "Aim mode", command = self.enterAimMode)
-        photoEnter.grid(row=1, column=1)
-        photoExit = tk.Button(self,text = "Photo Mode/Exit Aim", command = self.exitPhotoMode)
-        photoExit.grid(row=1, column=2)
+        photoEnter = tk.Button(self,text = "Aim mode", command = self.enterAimMode, height = 2)
+        photoEnter.grid(row=0, column=3)
+        photoExit = tk.Button(self,text = "Photo Mode", command = self.exitPhotoMode, height = 2)
+        photoExit.grid(row=0, column=4)
 
         #canvas = Canvas(self,width= 800, height =480)
         #canvas.pack()
-        global picture
-        picture = False
+        global im
+        global data
+        data = 0
         global removeBoolean
         removeBoolean = False
 
@@ -52,7 +53,9 @@ class Page1(Page):
 
 
    def saveCurrentImage(self):
-	   print("Saved Current Image")
+        global im
+        cAc.savImg(im)
+        print("Saved Current Image")
 
    def displayCurrentImage(self):
 	   print("displaying current/updated Image")
@@ -62,28 +65,47 @@ class Page1(Page):
 	   global dimButton
 	   global saveButton
 
-	   brightenButton = tk.Button(self, text = "Brighten", command = self.brightnessIncrease)
-	   dimButton = tk.Button(self, text = "Dim", command = self.brightnessDecrease)
-	   saveButton = tk.Button(self, text = "Save", command = self.saveCurrentImage)
+	   brightenButton = tk.Button(self, text = "Brighten", command = self.brightnessIncrease, height = 10)
+	   dimButton = tk.Button(self, text = "Dim", command = self.brightnessDecrease, height = 10, width = 10)
+	   saveButton = tk.Button(self, text = "Save", command = self.saveCurrentImage, height = 2,width = 10)
 
-	   brightenButton.grid(row = 2, column = 1)
-	   dimButton.grid(row=2,column=2)
-	   saveButton.grid(row=2, column=3)
+	   brightenButton.grid(row = 3, column = 1)
+	   dimButton.grid(row=3,column=3)
+	   saveButton.grid(row=0, column=2)
 
 
    def brightnessIncrease(self):
 	   print("brightnessIncreased")
-	   self.displayCurrentImage()
+	   global data
+	   global img
+	   global im
+	   myhelp = 10*np.ones((1024,1280))
+	   data = data + myhelp
+	   im = Image.fromarray(data)
+	   imDS = im.resize((800, 480))
+	   img = ImageTk.PhotoImage(imDS)
+	   self.panel.configure(image=img)
+	   self.panel.image = img
+	   
 
    def brightnessDecrease(self):
 	   print("brightnessDecreased")
-	   self.displayCurrentImage()
+	   global data
+	   global img
+	   myhelp = -10*np.ones((1024,1280))
+	   data = data + myhelp
+	   im = Image.fromarray(data)
+	   imDS = im.resize((800, 480))
+	   img = ImageTk.PhotoImage(imDS)
+	   self.panel.configure(image=img)
+	   self.panel.image = img
 
    def refresh(self):
         global cam
         global removeBoolean
-        global picture
+        global im
         global img
+        global data
         
       #  if removeBoolean == True:
                # picture.grid_remove()
@@ -107,7 +129,7 @@ class Page1(Page):
         if self.panel is None:
                 self.panel = Label(self, image = img)
                 self.panel.image = img
-                self.panel.grid(row=3, column=3)
+                self.panel.grid(row=3, column=2)
 
         else:
                 self.panel.configure(image=img)
@@ -121,35 +143,56 @@ class Page1(Page):
 
 
 class Page2(Page):
-   def __init__(self, *args, **kwargs):
-	   Page.__init__(self, *args, **kwargs)
-	   #still need to finish logic for individual file names and saving to array
+        def __init__(self, *args, **kwargs):
+                Page.__init__(self, *args, **kwargs)
+                #still need to finish logic for individual file names and saving to array
 
-	   #im = Image.open("/Users/Shared/BME436/app.jpg")
-	   #ph = ImageTk.PhotoImage(im)
+                genIms = tk.Button(self,text = "Refresh", command = self.gIm)
+                genIms.grid(row=0, column=0)
 
-	   #label = Label(self, image=ph) #pic 1
-	   #label.image=ph
-	   #label.grid(row=2)
+        def gIm(self):
+                pics = cAc.getimgs()
+                #im = Image.open("/Users/Shared/BME436/app.jpg")
+                #ph = ImageTk.PhotoImage(im)
+                i = 1
+                j = 1
+                print(pics)
+                for paths in pics:
+                        bim = Image.open('/home/pi/Desktop/436/d-eye-abetes/Photos/' +paths)
+                        print(bim)
+                        imDD = bim.resize((400, 240))
+                        ph = ImageTk.PhotoImage(imDD)
+                        
+                        label = Label(self, image=ph)
+                        label.image = ph
+                        label.grid(row=i, column = j)
+                        i = i+1
+                        if i == 4:
+                                i = 1
+                                j = j + 1
+                        
+        #label = Label(self, image=ph) #pic 1
+        #label.image=ph
+        #label.grid(row=2)
 
-	   #label1 = Label(self, image=ph) #pic2
-	   #label1.image=ph
-	   #label1.grid(row=2, column=1)
+        #label1 = Label(self, image=ph) #pic2
+        #label1.image=ph
+        #label1.grid(row=2, column=1)
 
-	   #label1 = Label(self, image=ph) #pic3
-	   #label1.image=ph
-	   #label1.grid(row=2, column=2)
+        #label1 = Label(self, image=ph) #pic3
+        #label1.image=ph
+        #label1.grid(row=2, column=2)
 
-	   #label2 = Label(self, text="Procured Images")
-	   #label2.grid(row=1, column=1)
+        #label2 = Label(self, text="Procured Images")
+        #label2.grid(row=1, column=1)
 
 
 class Page3(Page):
    from simple_function import page3_functions
    def __init__(self, *args, **kwargs):
 	   Page.__init__(self, *args, **kwargs)
-	   turnOffLED = tk.Button(self, text = "turn OFF LED", command = self.page3_functions)
-	   ExitProgram = tk.Button(self, text = "ExitProgram", command = self.quit)
+	   turnOffLED = tk.Button(self, text = "turn OFF LED", command = self.page3_functions, height = 10)
+	   ExitProgram = tk.Button(self, text = "ExitProgram", command = self.quit, height = 10)
 
 	   turnOffLED.pack()
 	   ExitProgram.pack()
